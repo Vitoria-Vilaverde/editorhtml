@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Texto para Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .editor-container, .output-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .editor {
+            width: 100%;
+            min-height: 200px;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            outline: none;
+        }
+        button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output-container {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .toolbar {
+            margin-bottom: 10px;
+        }
+        .toolbar button {
+            background-color: #6c757d;
+        }
+        .toolbar button:hover {
+            background-color: #5a6268;
+        }
+        .preview {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="editor-container">
+        <h2>Editor de Texto</h2>
+        <div class="toolbar">
+            <button onclick="formatText('bold')"><b>Negrito</b></button>
+            <button onclick="formatText('italic')"><i>Itálico</i></button>
+            <button onclick="formatText('underline')"><u>Sublinhado</u></button>
+            <button onclick="formatText('insertLink')">Link</button>
+            <button onclick="formatText('formatBlock', '<h1>')">Título 1</button>
+            <button onclick="formatText('formatBlock', '<h2>')">Título 2</button>
+            <button onclick="formatText('formatBlock', '<h3>')">Título 3</button>
+            <button onclick="formatText('formatBlock', '<p>')">Parágrafo</button>
+            <button onclick="formatText('insertLineBreak')">Quebra de Linha</button>
+        </div>
+        <div id="editor" class="editor" contenteditable="true" placeholder="Escreva seu artigo aqui..."></div>
+        <button onclick="generateHTML()">Gerar Saída Formatada</button>
+    </div>
+
+    <div class="output-container">
+        <h2>Pré-visualização</h2>
+        <div class="preview" id="preview"></div>
+        <h2>Código HTML Formatado</h2>
+        <pre id="html-output"></pre>
+    </div>
+
+    <script>
+        // Função para aplicar formatação ao texto selecionado
+        function formatText(command, value = null) {
+            document.execCommand(command, false, value);
+        }
+
+        // Função para gerar o HTML formatado
+        function generateHTML() {
+            const editor = document.getElementById('editor');
+            const preview = document.getElementById('preview');
+            const htmlOutput = document.getElementById('html-output');
+
+            // Exibir a pré-visualização
+            preview.innerHTML = editor.innerHTML;
+
+            // Exibir o código HTML formatado
+            htmlOutput.textContent = editor.innerHTML;
+        }
+    </script>
+</body>
+</html>
